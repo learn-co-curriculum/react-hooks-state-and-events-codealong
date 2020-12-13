@@ -166,13 +166,13 @@ function Toggle() {
 ```
 
 With this state variable in place, let's add another feature to our button. When
-the button is ON, let's add a red border around the button, like this:
+the button is ON, let's make the background red, like this:
 
 ```js
-<button style={{ border: "2px solid red" }}>
+<button style={{ background: "red" }}>
 ```
 
-When it's OFF, it should have a black border.
+When it's OFF, it should have a white background.
 
 Let's go through those same questions to determine if we need to add state for this feature.
 
@@ -194,10 +194,10 @@ function Toggle() {
     setIsOn((isOn) => !isOn);
   }
 
-  const color = isOn ? "red" : "black";
+  const color = isOn ? "red" : "white";
 
   return (
-    <button style={{ border: `2px solid ${color}` }} onClick={handleClick}>
+    <button style={{ background: color }} onClick={handleClick}>
       {isOn ? "ON" : "OFF"}
     </button>
   );
@@ -350,25 +350,11 @@ causing the number to be removed from the list.
 Here's a tough one! We've seen how to add and remove elements from arrays, but
 what about updating them?
 
-Let's add a feature so that when a user _double clicks_ on a number, that number
-is incremented by 1.
+Let's update our click feature so that when a user clicks on a number, that
+number is incremented by 100.
 
-Here's how we can handle double clicks:
-
-```js
-const numberList = numbers.map((num) => (
-  <li
-    key={num}
-    onClick={() => handleLiClick(num)}
-    onDoubleClick={() => handleLiDoubleClick(num)}
-  >
-    {num}
-  </li>
-));
-```
-
-Next, in the `handleLiDoubleClick` function, we need to figure out a way to
-update our array in state and increment the number that was double-clicked.
+In the `handleLiClick` function, we need to figure out a way to
+update our array in state and increment the number that was clicked.
 
 Once again, there are a few approaches you could take here, so try to find a
 solution on your own before peeking at the answer! Remember, we want to find a
@@ -393,23 +379,23 @@ Here's an example of using `.map` to update _one element_ of an array:
 [1, 2, 3].map((number) => {
   if (number === 3) {
     // if the number is the one we're looking for, increment it
-    return number + 1;
+    return number + 100;
   } else {
     // otherwise, return the original number
     return number;
   }
 });
-// => [1,2,4]
+// => [1,2,103]
 ```
 
-So to use that technique to solve our problem, here's how our double click event
+So to use that technique to solve our problem, here's how our click event
 handler would look:
 
 ```js
-function handleLiDoubleClick(numberToUpdate) {
+function handleLiClick(numberToUpdate) {
   const newNumberArray = numbers.map((number) => {
     if (number === numberToUpdate) {
-      return numberToUpdate + 1;
+      return numberToUpdate + 100;
     } else {
       return number;
     }
@@ -417,6 +403,19 @@ function handleLiDoubleClick(numberToUpdate) {
   setNumbers(newNumberArray);
 }
 ```
+
+We can shorten this up a bit by using the ternary operator, and implicit return:
+
+```js
+function handleLiClick(numberToUpdate) {
+  const newNumberArray = numbers.map((number) =>
+    number === numberToUpdate ? numberToUpdate + 100 : number
+  );
+  setNumbers(newNumberArray);
+}
+```
+
+(It's up to you which version of this syntax you find more legible!)
 
 ### Array Cheat Sheet
 
