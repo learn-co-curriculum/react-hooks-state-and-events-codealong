@@ -20,9 +20,9 @@ state.
 
 As a quick recap:
 
-State is data that is changes over time in your component. State must be
-initialized in a component by calling `useState`. Updating state by calling
-`setState` will cause our components to re-render automatically.
+> State is data that is changes over time in your component. State must be
+> initialized in a component by calling `useState`. Updating state by calling
+> `setState` will cause our components to re-render automatically.
 
 To code along, run `npm install && npm start` to install the dependencies and
 get the demo app running.
@@ -60,7 +60,7 @@ Our full checklist looks like this:
 
 - 🚫 Is it passed as a prop?
 - 🚫 Can you compute it based on any other state or props in your component?
-- ✅ Does it changes over time?
+- ✅ Does it change over time?
 
 So it's time to add state! There's some starter code in the `Toggle.js` file. If
 you're feeling good about what you learned in the last lesson, give it a shot
@@ -79,77 +79,77 @@ to build out this feature.
 
 1. Import the `useState` hook
 
-Any time we need state in a component, we need to use the `useState` hook from
-React. We can import it like so:
+   Any time we need state in a component, we need to use the `useState` hook from
+   React. We can import it like so:
 
-```js
-import React, { useState } from "react";
-```
+   ```js
+   import React, { useState } from "react";
+   ```
 
 2. Set up the initial state
 
-To create a state variable in our component, we need to call `useState` and
-provide an initial value:
+   To create a state variable in our component, we need to call `useState` and
+   provide an initial value:
 
-```js
-function Toggle {
-  const [isOn, setIsOn] = useState(false);
-  // ... the rest of Toggle component
-}
-```
+   ```js
+   function Toggle {
+     const [isOn, setIsOn] = useState(false);
+     // ... the rest of Toggle component
+   }
+   ```
 
-Whenever you're using a React hook, it **must** be within a React component.
-We're setting the initial state here as `false`, because the button should be
-"OFF" when the component first renders.
+   Whenever you're using a React hook, it **must** be within a React component.
+   We're setting the initial state here as `false`, because the button should be
+   "OFF" when the component first renders.
 
 3. Use the state variable in the component
 
-Now that we have this new variable, it's time to use it! We can use the `isOn`
-variable to determine what text to display in the button:
+   Now that we have this new variable, it's time to use it! We can use the `isOn`
+   variable to determine what text to display in the button:
 
-```js
-<button>{isOn ? "ON" : "OFF"}</button>
-```
+   ```js
+   <button>{isOn ? "ON" : "OFF"}</button>
+   ```
 
-Here, we're doing some
-[conditional rendering](https://reactjs.org/docs/conditional-rendering.html)
-to dynamically determine the button's text _based on our state variable_.
+   Here, we're doing some
+   [conditional rendering](https://reactjs.org/docs/conditional-rendering.html)
+   to dynamically determine the button's text _based on our state variable_.
 
-You should now be able to change the initial state in the `useState` function
-and see if your button's text displays what you expect. Setting an initial state
-of `true` should display "ON", and `false` should display "OFF".
+   You should now be able to change the initial state in the `useState` function
+   and see if your button's text displays what you expect. Setting an initial state
+   of `true` should display "ON", and `false` should display "OFF".
 
 4. Call the setter function to update state
 
-Any time we want to _update_ state, we need to use the _setter function_ returned by calling `useState`.
-We also need to determine what triggers that update. In our case it's the button being clicked.
+   Any time we want to _update_ state, we need to use the _setter function_ returned by calling `useState`.
+   We also need to determine what triggers that update. In our case it's the button being clicked.
 
-Let's start by adding an `onClick` handler to the button:
+   Let's start by adding an `onClick` handler to the button:
 
-```js
-<button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>
-```
+   ```js
+   <button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>
+   ```
 
-Next, let's set up the `handleClick` callback function, and update state. Here,
-we must call the _setter function_ to update our state variable. Trying to
-update the variable won't have any effect (even if we changed our variable
-declaration) to `let` instead of `const`:
+   Next, let's set up the `handleClick` callback function, and update state. Here,
+   we must call the _setter function_ to update our state variable. Trying to
+   update the variable won't have any effect (even if we changed our variable
+   declaration to `let` instead of `const`):
 
-```js
-let [isOn, setIsOn] = useState(false);
-function handleClick() {
-  // updating state directly is a no-no!
-  isOn = !isOn;
-}
-```
+   ```js
+   let [isOn, setIsOn] = useState(false);
+   function handleClick() {
+     // updating state directly is a no-no!
+     isOn = !isOn;
+   }
+   ```
 
-So the way we should update state looks like this:
+   So the way we should update state looks like this:
 
-```js
-function handleClick() {
-  setIsOn((isOn) => !isOn);
-}
-```
+   ```js
+   function handleClick() {
+     setIsOn((isOn) => !isOn);
+   }
+   ```
 
 All together, here's our updated component:
 
@@ -222,7 +222,7 @@ the solution, see if you can get this working by:
 - using that array to display each number as a `<li>`; and
 - adding a new number to the array when the button is clicked.
 
-Keep in mind, when you're updating state, you should never _mutate_ the array --
+Keep in mind, when you're updating state, you should never _mutate_ the array &mdash;
 instead, find a way to make a _copy_ of the array with the new number in it
 (**hint**: the spread operator is your friend here).
 
@@ -242,7 +242,9 @@ import React, { useState } from "react";
 import { randomNumber } from "../utils";
 
 function NumberList() {
-  const [numbers, setNumbers] = useState([1, 2, 3]); // adding elements to the array to test if they display
+  // add initial values to the array to test if they display
+  const [numbers, setNumbers] = useState([1, 2, 3]);
+
   // rest of component
 }
 ```
@@ -262,8 +264,8 @@ return (
 );
 ```
 
-Now that our numbers are displaying, time for the moment of truth: can we update state
-and get new numbers to display dynamically?
+Now that our numbers are displaying, time for the moment of truth: can we update
+state and get new numbers to display dynamically?
 
 ```js
 function handleAddNumber() {
@@ -284,9 +286,11 @@ state, and insert it into a _new_ array. We're also adding the newly generated
 number returned by the `randomNumber` function at the end of the array.
 
 Whenever we are updating state, it's important **not to mutate objects and
-arrays**, and instead, to create **copies** of them. **If we mutate state, it can
-cause some unexpected behavior in our apps due to the way React manages state
-internally**. Make sure to never mutate state directly!
+arrays**, and instead, to create **copies** of them. **If we mutate state, it
+can cause some unexpected behavior in our apps due to the way React manages
+state internally**.
+
+Make sure to never mutate state!
 
 After setting state, our component should automatically re-render with the new
 list of numbers.
@@ -499,14 +503,14 @@ const numberList = numbersToDisplay.map((num) => <li key={num}>{num}</li>);
 
 Having both of these variables in state and knowing how to use them in
 conjunction with each other give us a lot of power in React! All we need to
-worry about is using our programming tools -- working with _data_; manipulating
-_arrays_ -- and React can take care of all the hard work of updating the DOM
-correctly.
+worry about is using our programming tools &mdash; working with _data_;
+manipulating _arrays_ &mdash; and React can take care of all the hard work of
+updating the DOM correctly.
 
 ## Conclusion
 
 Thinking like a React developer involves making a lot of decisions about how to
-structure your components, particularly when it comes to _props_ and _state_.
+structure your components, particularly when it comes to **props** and **state**.
 Now that you've seen the process and some common patterns for working with
 state, it's up to you to apply these decisions to your own components moving
 forward.
@@ -521,4 +525,4 @@ arrays**.
 - [Props vs. State](https://github.com/uberVU/react-guide/blob/master/props-vs-state.md)
 - [Thinking in React](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state)
 
-<p class='util--hide'>View <a href='https://learn.co/lessons/react-initial-state'>Initial State</a> on Learn.co and start learning to code for free.</p>
+<p class='util&mdash;hide'>View <a href='https://learn.co/lessons/react-initial-state'>Initial State</a> on Learn.co and start learning to code for free.</p>
