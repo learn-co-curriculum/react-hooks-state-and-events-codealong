@@ -27,7 +27,7 @@ As a quick recap:
 To code along, run `npm install && npm start` to install the dependencies and
 get the demo app running.
 
-## Determining When To Add State
+### Determining When To Add State
 
 For our first component, let's work on a toggle button. It should do the following:
 
@@ -77,79 +77,79 @@ now! We'll walk through the steps below.
 Ok, hope you were able to get that going! Here's our process for adding state
 to build out this feature.
 
-1. Import the `useState` hook
+#### 1. Import the `useState` hook
 
-   Any time we need state in a component, we need to use the `useState` hook from
-   React. We can import it like so:
+Any time we need state in a component, we need to use the `useState` hook from
+React. We can import it like so:
 
-   ```js
-   import React, { useState } from "react";
-   ```
+```js
+import React, { useState } from "react";
+```
 
-2. Set up the initial state
+#### 2. Set up the initial state
 
-   To create a state variable in our component, we need to call `useState` and
-   provide an initial value:
+To create a state variable in our component, we need to call `useState` and
+provide an initial value:
 
-   ```js
-   function Toggle {
-     const [isOn, setIsOn] = useState(false);
-     // ... the rest of Toggle component
-   }
-   ```
+```js
+function Toggle {
+  const [isOn, setIsOn] = useState(false);
+  // ... the rest of Toggle component
+}
+```
 
-   Whenever you're using a React hook, it **must** be within a React component.
-   We're setting the initial state here as `false`, because the button should be
-   "OFF" when the component first renders.
+Whenever you're using a React hook, it **must** be within a React component.
+We're setting the initial state here as `false`, because the button should be
+"OFF" when the component first renders.
 
-3. Use the state variable in the component
+#### 3. Use the state variable in the component
 
-   Now that we have this new variable, it's time to use it! We can use the `isOn`
-   variable to determine what text to display in the button:
+Now that we have this new variable, it's time to use it! We can use the `isOn`
+variable to determine what text to display in the button:
 
-   ```js
-   <button>{isOn ? "ON" : "OFF"}</button>
-   ```
+```js
+<button>{isOn ? "ON" : "OFF"}</button>
+```
 
-   Here, we're doing some
-   [conditional rendering](https://reactjs.org/docs/conditional-rendering.html)
-   to dynamically determine the button's text _based on our state variable_.
+Here, we're doing some
+[conditional rendering](https://reactjs.org/docs/conditional-rendering.html)
+to dynamically determine the button's text _based on our state variable_.
 
-   You should now be able to change the initial state in the `useState` function
-   and see if your button's text displays what you expect. Setting an initial state
-   of `true` should display "ON", and `false` should display "OFF".
+You should now be able to change the initial state in the `useState` function
+and see if your button's text displays what you expect. Setting an initial state
+of `true` should display "ON", and `false` should display "OFF".
 
-4. Call the setter function to update state
+#### 4. Call the setter function to update state
 
-   Any time we want to _update_ state, we need to use the _setter function_ returned by calling `useState`.
-   We also need to determine what triggers that update. In our case it's the button being clicked.
+Any time we want to _update_ state, we need to use the _setter function_ returned by calling `useState`.
+We also need to determine what triggers that update. In our case it's the button being clicked.
 
-   Let's start by adding an `onClick` handler to the button:
+Let's start by adding an `onClick` handler to the button:
 
-   ```js
-   <button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>
-   ```
+```js
+<button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>
+```
 
-   Next, let's set up the `handleClick` callback function, and update state. Here,
-   we must call the _setter function_ to update our state variable. Trying to
-   update the variable won't have any effect (even if we changed our variable
-   declaration to `let` instead of `const`):
+Next, let's set up the `handleClick` callback function, and update state. Here,
+we must call the _setter function_ to update our state variable. Trying to
+update the variable won't have any effect (even if we changed our variable
+declaration to `let` instead of `const`):
 
-   ```js
-   let [isOn, setIsOn] = useState(false);
-   function handleClick() {
-     // updating state directly is a no-no!
-     isOn = !isOn;
-   }
-   ```
+```js
+let [isOn, setIsOn] = useState(false);
+function handleClick() {
+  // updating state directly is a no-no!
+  isOn = !isOn;
+}
+```
 
-   So the way we should update state looks like this:
+So the way we should update state looks like this:
 
-   ```js
-   function handleClick() {
-     setIsOn((isOn) => !isOn);
-   }
-   ```
+```js
+function handleClick() {
+  setIsOn((isOn) => !isOn);
+}
+```
 
 All together, here's our updated component:
 
@@ -164,6 +164,8 @@ function Toggle() {
   return <button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>;
 }
 ```
+
+### Adding More Features
 
 With this state variable in place, let's add another feature to our button. When
 the button is ON, let's make the background red, like this:
@@ -470,6 +472,20 @@ state to be a string of "All":
 
 ```js
 const [filterBy, setFilterBy] = useState("All");
+```
+
+With this state variable in place, we can update the `<select>` element to set the `filterBy` variable when its value is changed, like so:
+
+```js
+function handleFilterChange(event) {
+  setFilterBy(event.target.value);
+}
+
+<select name="filter" onChange={handleFilterChange}>
+  <option value="All">All</option>
+  <option value="Even">Even</option>
+  <option value="Odd">Odd</option>
+</select>;
 ```
 
 Next, let's figure out how this filter value can be used to update what numbers
