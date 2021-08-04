@@ -82,7 +82,7 @@ to build out this feature.
 Any time we need state in a component, we need to use the `useState` hook from
 React. We can import it like so:
 
-```js
+```jsx
 import React, { useState } from "react";
 ```
 
@@ -91,7 +91,7 @@ import React, { useState } from "react";
 To create a state variable in our component, we need to call `useState` and
 provide an initial value:
 
-```js
+```jsx
 function Toggle() {
   const [isOn, setIsOn] = useState(false);
   // ... the rest of Toggle component
@@ -107,7 +107,7 @@ We're setting the initial state here as `false`, because the button should be
 Now that we have this new variable, it's time to use it! We can use the `isOn`
 variable to determine what text to display in the button:
 
-```js
+```jsx
 <button>{isOn ? "ON" : "OFF"}</button>
 ```
 
@@ -127,7 +127,7 @@ update. In our case it's the button being clicked.
 
 Let's start by adding an `onClick` handler to the button:
 
-```js
+```jsx
 <button onClick={handleClick}>{isOn ? "ON" : "OFF"}</button>
 ```
 
@@ -136,7 +136,7 @@ we must call the _setter function_ to update our state variable. Trying to
 update the variable directly won't have any effect (even if we changed our
 variable declaration to `let` instead of `const`):
 
-```js
+```jsx
 let [isOn, setIsOn] = useState(false);
 function handleClick() {
   // updating state directly is a no-no!
@@ -146,7 +146,7 @@ function handleClick() {
 
 So the way we should update state looks like this:
 
-```js
+```jsx
 function handleClick() {
   setIsOn((isOn) => !isOn);
 }
@@ -154,7 +154,7 @@ function handleClick() {
 
 All together, here's our updated component:
 
-```js
+```jsx
 function Toggle() {
   const [isOn, setIsOn] = useState(false);
 
@@ -171,7 +171,7 @@ function Toggle() {
 With this state variable in place, let's add another feature to our button. When
 the button is ON, let's make the background red, like this:
 
-```js
+```jsx
 <button style={{ background: "red" }}>
 ```
 
