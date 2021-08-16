@@ -5,21 +5,21 @@
 - Use the `useState` hook to create state within a component
 - Update state based on events
 
-## Overview
+## Introduction
 
 In this code-along, we'll get some hands-on practice writing components with
 state and setting state based on different kinds of events.
 
 ## Adding State to a Component
 
-To get some practice adding state to a component, code along with this readme.
+To get some practice adding state to a component, code along with this lesson.
 There's some starter code in the `src/components` folder. We'll be adding state
 to some existing components and building out some functionality that depends on
 state.
 
 As a quick recap:
 
-> State is data that is changes over time in your component. State must be
+> State is data that changes over time in your component. State must be
 > initialized in a component by calling `useState`. Updating state by calling
 > `setState` will cause our components to re-render automatically.
 
